@@ -2,58 +2,23 @@
 
 (pg:app
  setup: (lambda (resources)
-          (make-environment 300 500 resources #f))
+          (make-environment 1280 800 resources #f))
  main-loop: (lambda (env)
-              (let* ((graphics (environment-graphics env))
-                     (surface (graphics-surface graphics))
-                     (canvas (graphics-canvas graphics))
-                     (maxx (environment-size-x env))
-                     (maxy (environment-size-y env)))
-                (let loop ()
-                  ;; This sets the default style (color, thickness, pattern)
-                  (draw:stroke! (make-color/rgba 0 0 0 1) 1.0 #f)
-                  (draw:fill-color! (make-color/rgba 1 1 1 1))
-                  
-                  (draw:rectangle/corners 0 0 maxx maxy)
-                  
-                  (draw:stroke-thickness! 10.0)
-                  (draw:segment (/ maxx 2) 0 (/ maxx 2) maxy)
-                  
-                  ;; This sets only the color
-                  ;(draw:stroke-color! (make-color/rgba 0.5 0.5 0.5 1.0))
-
-                  (draw:path closed?: #t
-                             (make-vect2 50.0 50.0)
-                             (make-vect2 300.0 100.0)
-                             (make-vect2 30.0 200.0)
-                             (make-vect2 250.0 400.0))
-
-                  (draw:bezier (make-vect2 0.0 0)
-                               (make-vect2 300.0 100.0)
-                               (make-vect2 30.0 200.0)
-                               (make-vect2 0 0))
-                  
-                  #;
-                  (input:call-with-poll-events
-                   (lambda (event)
-                     (pp event)))
-                  
-                  ;; (input:call-with-wait-event
-                  ;;  (lambda (ev)
-                  ;;    (pp ev)))
-                  
-                  (if (input:key-pressed? 32)
-                      (pp "space pressed"))
-
-                  (if (input:key-pressed? 27)
-                      (exit 0))
-
-                  (if (input:mouse-button-pressed? 'left)
-                      (pp "mouse 1 pressed"))
-                                    
-                  ;; (input:set-key-events-listener!
-                  ;;  (lambda (event)
-                  ;;    ()))
-                  
-                  (draw:on surface)
-                  (loop)))))
+             (let* ((graphics (environment-graphics env))
+                    (surface (graphics-surface graphics))
+                    (canvas (graphics-canvas graphics))
+                    (maxx (environment-size-x env))
+                    (maxy (environment-size-y env))
+                    (box-size-x (/ (* maxx 2.5) 100))
+                    (box-size-y (* maxy 20))
+                    (box-1-pos-x (/ (* maxx 10) 100))
+                    (box-2-pos-x (- maxx (/ (* maxx 10) 100))))
+               (let loop ((box-1-pos-y (/ maxy 2))
+                          (box-2-pos-y (/ maxy 2)))
+                 (draw:fill-color! (make-color/rgba 1 1 1 1))
+                 ;(draw:rectangle/corners 0 0 (+ 0  box-size-x) (+ 0 box-size-y))
+                 ;(draw:rectangle/corners 0 0 10 10)
+                 (draw:rectangle/center box-1-pos-x box-1-pos-y (/ box-size-x 10) (/ box-size-x 10))
+                 ;(draw:rectangle/center box-2-pos-x box-2-pos-y box-size-x box-size-y)
+                 (draw:on surface)
+                 (loop box-1-pos-y box-2-pos-y)))))

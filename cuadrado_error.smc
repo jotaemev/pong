@@ -1,0 +1,13 @@
+ main-loop: (lambda (env)
+             (let* ((graphics (environment-graphics env))
+                    (surface (graphics-surface graphics))
+                    (canvas (graphics-canvas graphics))
+                    (maxx (environment-size-x env))
+                    (maxy (environment-size-y env)))
+               (let loop ()
+                 (draw:fill-color! (make-color/rgba 1 1 1 1))
+                 (draw:rectangle/corners 0 0 10 10)
+                 (draw:rectangle/center 50 50 10 10)
+
+                 (draw:on surface)
+                 (loop box-1-pos-y box-2-pos-y)))))
