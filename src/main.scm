@@ -1,5 +1,5 @@
 ;; Copyright (c) 2012, Alvaro Castro-Castilla. All rights reserved.
-
+;; Game by: Daniel Sanchez, Alejandro Cabeza, Carlos Belmonte and Juan-Maria Vergara
 (pg:app
  setup: (lambda (resources)
           (make-environment 1280 800 resources #f))
