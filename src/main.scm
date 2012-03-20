@@ -36,21 +36,21 @@
 
                  (draw:circle/center c-pos-x c-pos-y c-size)
                  (draw:on surface)
-                 (loop 
+                 (loop #;(+ box-1-pos-y 1)  #;(+ box-2-pos-y 1)  
+                  
                   
                   (cond 
-                   ((input:key-pressed? 119) (set! box-1-pos-y (+ box-2-pos-y 10)))
-                   ((input:key-pressed? 115) (set! box-1-pos-y (- box-2-pos-y 10)))
+                   ((input:key-pressed? 119) (- box-1-pos-y 10))
+                   ((input:key-pressed? 115) (+ box-1-pos-y 10))
                    (else
-                    (box-1-pos-y)))
+                    box-1-pos-y))
 
-
-
+                  
                   (cond 
-                   ((input:key-pressed? 2) (set! box-2-pos-y (+ box-2-pos-y 10)))
-                   ((input:key-pressed? 3) (set! box-2-pos-y (- box-2-pos-y 10)))
+                   ((input:key-pressed? 273) (- box-2-pos-y 10))
+                   ((input:key-pressed? 274) (+ box-2-pos-y 10))
                    (else
-                    (box-2-pos-y)))
+                    box-2-pos-y))
                   
 
                   )))))
