@@ -13,6 +13,8 @@
                     (box-size-y (/ (* maxy 20) 100))
                     (box-1-pos-x (/ (* maxx 5) 100))
                     (box-2-pos-x (- maxx (/ (* maxx 5) 100)))
+                    (max-pos-y (- maxy box-size-y))
+                    (min-pos-y box-size-y)
                     (c-pos-x (/ (* maxx 50) 100))
                     (c-pos-y (/ (* maxy 50) 100))
                     (c-size 10))
@@ -41,17 +43,23 @@
                  ;Main loop
                  (loop  
                   
-                  
+                  ;Player One box movement
                   (cond 
-                   ((input:key-pressed? 119) (- box-1-pos-y 10))
-                   ((input:key-pressed? 115) (+ box-1-pos-y 10))
+                   ((input:key-pressed? 119) (if (< (- box-1-pos-y 10) min-pos-y) min-pos-y
+                                                 (- box-1-pos-y 10)))
+                   
+                   ((input:key-pressed? 115) (if (> (+ box-1-pos-y 10) max-pos-y) max-pos-y
+                                                 (+ box-1-pos-y 10)))
                    (else
                     box-1-pos-y))
 
-                  
+                  ;Player Two box movement 
                   (cond 
-                   ((input:key-pressed? 273) (- box-2-pos-y 10))
-                   ((input:key-pressed? 274) (+ box-2-pos-y 10))
+                   ((input:key-pressed? 273) (if (< (- box-2-pos-y 10) min-pos-y) min-pos-y
+                                                 (- box-2-pos-y 10)))
+                   
+                   ((input:key-pressed? 274) (if (> (+ box-2-pos-y 10) max-pos-y) max-pos-y
+                                                 (+ box-2-pos-y 10)))
                    (else
                     box-2-pos-y))
                   
